@@ -22,15 +22,17 @@ namespace CircularBuffer
             _content = new int[maxSize];
         }
 
-        private void OverWriteData()
-        {
-
-        }
-
+        /// <summary>
+        /// Adds a value to the buffer. If the buffer is full then it overwrites the oldest value in the buffer. And lets the tail point to the next value.
+        /// </summary>
+        /// <param name="value">The value to insert into the buffer</param>
+        /// <returns>The count of elements in the buffer</returns>
         public int AddValue(int value)
         {
             _head = _head % this._content.Length;
             _content[_head] = value;
+
+            //If the buffer is full move the tail to the next element in the buffer, otherwise increment the count of added elements.
             if(_count == _content.Length)
             {
                 _tail++;
@@ -40,9 +42,15 @@ namespace CircularBuffer
                 _count++;
             }
             _head++;
-            return _head;
+
+            return _count;
         }
 
+        /// <summary>
+        /// Retrieves the first inserted value in the buffer. Then moves the tail to point to the next element if one exists.
+        /// </summary>
+        /// <returns>The first inserted value in the buffer</returns>
+        /// Throws an Exception if there are no value to retrieve.
         public int RetrieveValue()
         {
             if(_count == 0)
