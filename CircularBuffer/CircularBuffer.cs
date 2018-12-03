@@ -58,6 +58,7 @@ namespace CircularBuffer
                 throw new Exception("No value available in buffer");
             }
 
+            _tail = _tail % _content.Length;
             int value = _content[_tail];
             _tail++;
             _count--;
