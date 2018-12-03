@@ -7,8 +7,10 @@ namespace CircularBuffer
 
         public static string AskForString(string prompt)
         {
+            Console.WriteLine();
             Console.Write(prompt);
             return Console.ReadLine();
+
         }
 
         public static int AskForInt(string prompt)
@@ -26,15 +28,21 @@ namespace CircularBuffer
 
         public static void AddValue(CircularBuffer buffer)
         {
+            int elementsCount = 0;
             try
             {
                 int value = AskForInt("Write value to add to the buffer: ");
-                buffer.AddValue(value);
+                elementsCount = buffer.AddValue(value);
             }
             catch (FormatException ex)
             {
                 Console.WriteLine(ex.Message);
             }
+            finally
+            {
+                Console.WriteLine("Number of elements in buffer after added value: {0}", elementsCount);
+            }
+
         }
 
         public static void RetrieveValue(CircularBuffer buffer)
